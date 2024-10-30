@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ setToken }) => {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
@@ -28,6 +28,7 @@ const Login = () => {
 
     if (response.ok) {
       localStorage.setItem('token', data.access_token); 
+      setToken(data.access_token);  // Actualizamos el token en App inmediatamente
       navigate('/'); 
     } else {
       setError('Error al iniciar sesión: ' + (data.detail || 'Datos incorrectos'));
