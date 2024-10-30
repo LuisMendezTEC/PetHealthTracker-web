@@ -45,6 +45,15 @@ const Histories = () => {
     setLoading(false);
   };
 
+  const handleKeyPress = (event) => { // Función para buscar historiales al presionar Enter
+    if (event.key === 'Enter') {
+      fetchHistoriales();
+    }
+  };
+
+
+ 
+
   return (
     <div className="container mt-auto mx-auto p-4">
       <div className="mb-4">
@@ -54,6 +63,7 @@ const Histories = () => {
           value={idVeterinario}
           onChange={(e) => setIdVeterinario(e.target.value)}
           className="border p-2 rounded mr-2"
+          onKeyPress={handleKeyPress}
         />
         <button onClick={fetchHistoriales} className="bg-blue-500 text-white p-2 rounded">
           Buscar Historiales
