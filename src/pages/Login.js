@@ -83,14 +83,17 @@ const Login = ({ setToken }) => {
 
           <div>
             <label htmlFor="puesto" className="block">Puesto</label>
-            <input
-              type="text"
+            <select
               id="puesto"
               className="border p-2 w-full"
               value={puesto}
               onChange={(e) => setPuesto(e.target.value)}
               required
-            />
+            >
+              <option value="">Seleccione un puesto</option>
+              <option value="Veterinario">Veterinario</option>
+              <option value="Recepcionista">Recepcionista</option>
+            </select>
           </div>
 
           <div>

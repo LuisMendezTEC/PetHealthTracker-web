@@ -36,9 +36,6 @@ const Histories = () => {
         console.error('Error fetching historiales:', data.message);
       } }
     
-    
-    
-    
     } catch (error) {
       console.error('Error fetching historiales:', error);
     }
