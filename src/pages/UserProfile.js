@@ -1,42 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import AppointmentList from '../components/AppointmentList';
 
-const Appointments = () => {
-  const [citas, setCitas] = useState([]);
+const UserProfile = () => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchCitas = async () => {
+  const fetchUserData = async () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://127.0.0.1:8000/citas/');
+      const response = await fetch('http://127.0.0.1:8000/user-profile/', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await response.json();
       if (response.ok) {
-        setCitas(data.data);
-        if (data.data.length === 0) {
-          setError('No se encontraron citas');
-        }
+        setUser(data);
       } else {
-        setError(data.message || 'Error al cargar las citas');
+        setError(data.message || 'Error al cargar la información del usuario');
       }
     } catch (error) {
       setError('Error de conexión al servidor');
-      console.error('Error fetching citas:', error);
+      console.error('Error fetching user data:', error);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchCitas();
+    fetchUserData();
   }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Citas</h1>
-        <p className="text-gray-600">Consulta y gestiona las citas registradas</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Perfil del Usuario</h1>
+        <p className="text-gray-600">Información detallada del usuario registrado</p>
       </div>
 
       {/* Results Section */}
@@ -60,15 +61,20 @@ const Appointments = () => {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-2 text-gray-600">Cargando citas...</span>
+              <span className="ml-2 text-gray-600">Cargando información del usuario...</span>
             </div>
           ) : (
-            citas.length > 0 ? (
-              <AppointmentList citas={citas} />
+            user ? (
+              <div className="text-gray-900">
+                <h2 className="text-xl font-bold mb-4">Datos del Usuario</h2>
+                <p><span className="font-medium">Nombre:</span> {user.name}</p>
+                <p><span className="font-medium">Correo:</span> {user.email}</p>
+                <p><span className="font-medium">Rol:</span> {user.role}</p>
+                <p><span className="font-medium">Registrado el:</span> {new Date(user.registeredDate).toLocaleDateString()}</p>
+              </div>
             ) : !error && (
               <div className="text-center py-12">
-                <p className="text-gray-500">No hay citas para mostrar</p>
-                <p className="text-sm text-gray-400 mt-1">Realiza una acción para ver los resultados</p>
+                <p className="text-gray-500">No hay información del usuario para mostrar</p>
               </div>
             )
           )}
@@ -78,4 +84,4 @@ const Appointments = () => {
   );
 };
 
-export default Appointments;
+export default UserProfile;

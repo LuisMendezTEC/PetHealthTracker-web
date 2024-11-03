@@ -49,7 +49,7 @@ const Navbar = () => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-700">
-                {decodedToken?.name || 'Usuario'}
+                {decodedToken?.role || 'Usuario'}
               </span>
               <button
                 onClick={handleLogout}

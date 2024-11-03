@@ -6,6 +6,7 @@ import Clients from './pages/Clients';
 import Appointments from './pages/Appointments';
 import Histories from './pages/Histories';
 import Reports from './pages/Reports'; // Importa la página de reportes
+import UserProfile from './pages/UserProfile';
 
 // Función para decodificar el token JWT y obtener el payload
 const decodeToken = (token) => {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/citas" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Appointments /></PrivateRoute>} />
           <Route path="/historiales" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Histories /></PrivateRoute>} />
           <Route path="/reportes" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista']}><Reports /></PrivateRoute>} /> {/* Ruta protegida */}
+          <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
         </Routes>
       </div>
     </Router>
