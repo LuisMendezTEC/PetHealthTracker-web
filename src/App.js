@@ -8,6 +8,7 @@ import Histories from './pages/Histories';
 import Reports from './pages/Reports';
 import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
+import SupportChat from './components/SupportChat';
 
 // Función para decodificar el token JWT y obtener el payload
 const decodeToken = (token) => {
@@ -65,6 +66,7 @@ function App() {
           <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
           <Route path="/dashboard" element={<PrivateRoute allowedRoles={['Administrador']}><Dashboard /></PrivateRoute>} />
         </Routes>
+        {token && <SupportChat />} {/* Muestra el soporte solo si hay un usuario autenticado */}
       </div>
     </Router>
   );
