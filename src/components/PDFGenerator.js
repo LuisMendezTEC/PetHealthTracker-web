@@ -1,6 +1,11 @@
 import React from 'react';
 import { pdf } from '@react-pdf/renderer';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import useDecodedToken from '../hooks/UseDecodedToken.js';
+
+
+
+
 
 // Definir estilos para el PDF
 const styles = StyleSheet.create({
@@ -76,7 +81,9 @@ const styles = StyleSheet.create({
 });
 
 // Componente del PDF
-const PDFDocument = ({ appointmentStats, activeUserData, performanceData, startDate, endDate }) => (
+const PDFDocument = ({ appointmentStats, activeUserData, performanceData, startDate, endDate, name }) => (
+
+
   <Document>
     <Page size="A4" style={styles.page}>
       {/* Título y período del reporte */}
@@ -124,7 +131,8 @@ const PDFDocument = ({ appointmentStats, activeUserData, performanceData, startD
 
       {/* Footer */}
       <Text style={styles.footer}>
-        Generado el {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}
+        {console.log(name)}
+        Generado por {name} el {new Date().toLocaleString()}
       </Text>
     </Page>
   </Document>
@@ -132,6 +140,8 @@ const PDFDocument = ({ appointmentStats, activeUserData, performanceData, startD
 
 // Función para generar y descargar el PDF
 const generatePDF = async (data) => {
+
+  
   try {
     const blob = await pdf(
       <PDFDocument 
@@ -140,6 +150,7 @@ const generatePDF = async (data) => {
         performanceData={data.performanceData}
         startDate={data.startDate}
         endDate={data.endDate}
+        name={data.name}
       />
     ).toBlob();
 
@@ -158,13 +169,16 @@ const generatePDF = async (data) => {
 };
 
 export const PDFGenerator = ({ appointmentStats, activeUserData, performanceData, startDate, endDate }) => {
+  const undecodedToken = useDecodedToken();
+  const name = undecodedToken?.nombre;
   const handleGeneratePDF = () => {
     generatePDF({
       appointmentStats,
       activeUserData,
       performanceData,
       startDate,
-      endDate
+      endDate, 
+      name
     });
   };
 
