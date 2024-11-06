@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import DatePicker from 'react-datepicker';
 import Modal from 'react-modal';
+import PDFGenerator from '../components/PDFGenerator.js';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Dashboard = () => {
@@ -46,10 +47,7 @@ const Dashboard = () => {
     setModalContent('');
   };
 
-  const generatePDF = () => {
-    // aqui iria la logica del pdf @roosevelt
-    alert("Generando PDF...");
-  };
+  
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen text-gray-800">
@@ -77,12 +75,13 @@ const Dashboard = () => {
             placeholderText="Selecciona fecha de fin"
           />
         </div>
-        <button
-          onClick={generatePDF}
-          className="ml-auto px-6 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition"
-        >
-          Generar PDF
-        </button>
+        <PDFGenerator
+          appointmentStats={appointmentStats}
+          activeUserData={activeUserData}
+          performanceData={performanceData}
+          startDate={startDate}
+          endDate={endDate}
+        />
       </div>
 
       {/* Resumen de Citas */}
