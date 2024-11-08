@@ -5,7 +5,6 @@ import Login from './pages/Login';
 import Clients from './pages/Clients';
 import Appointments from './pages/Appointments';
 import Histories from './pages/Histories';
-import Reports from './pages/Reports';
 import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
 import SupportChat from './components/SupportChat';
@@ -62,7 +61,6 @@ function App() {
           <Route path="/" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Clients /></PrivateRoute>} />
           <Route path="/citas" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Appointments /></PrivateRoute>} />
           <Route path="/historiales" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Histories /></PrivateRoute>} />
-          <Route path="/reportes" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista']}><Reports /></PrivateRoute>} />
           <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
           <Route path="/dashboard" element={<PrivateRoute allowedRoles={['Administrador']}><Dashboard /></PrivateRoute>} />
         </Routes>
