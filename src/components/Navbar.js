@@ -15,9 +15,6 @@ const Navbar = () => {
     { name: 'Clientes', path: '/' },
     { name: 'Citas', path: '/citas' },
     { name: 'Historiales', path: '/historiales' },
-    ...(decodedToken && (decodedToken.role === 'Administrador' || decodedToken.role === 'Recepcionista')
-      ? [{ name: 'Reportes', path: '/reportes' }]
-      : []),
     ...(decodedToken && decodedToken.role === 'Administrador'
       ? [{ name: 'Dashboard', path: '/dashboard' }]
       : []),
