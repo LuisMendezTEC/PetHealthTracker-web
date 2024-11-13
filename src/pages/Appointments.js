@@ -27,7 +27,7 @@ const Appointments = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     fetchCitas();
   }, []);
 
