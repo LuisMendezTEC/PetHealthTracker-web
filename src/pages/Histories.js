@@ -8,7 +8,7 @@ const Histories = () => {
   const [error, setError] = useState('');
   
   const decodedToken = useDecodedToken();
-  console.log(decodedToken);
+
   const idVeterinario = decodedToken?.id;
 
 
@@ -16,7 +16,7 @@ const Histories = () => {
     if (idVeterinario) {
       fetchHistoriales();
     }
-  }, [idVeterinario]); // Ejecuta cuando el idVeterinario está disponible
+  }, [idVeterinario]); 
 
   const fetchHistoriales = async () => {
     setLoading(true);
