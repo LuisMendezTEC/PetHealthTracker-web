@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import HistoryList from '../components/HistoryList';
 import useDecodedToken from '../hooks/UseDecodedToken.js'; 
 
@@ -10,13 +10,7 @@ const Histories = () => {
   const decodedToken = useDecodedToken();
   const idVeterinario = decodedToken?.id;
 
-  useEffect(() => {
-    if (idVeterinario) {
-      fetchHistoriales();
-    }
-  }, [idVeterinario]); 
-
-  const fetchHistoriales = async () => {
+  const fetchHistoriales = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
@@ -45,7 +39,13 @@ const Histories = () => {
       setHistoriales([]);
     }
     setLoading(false);
-  };
+  }, [idVeterinario]);
+
+  useEffect(() => {
+    if (idVeterinario) {
+      fetchHistoriales();
+    }
+  }, [idVeterinario, fetchHistoriales]); 
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
