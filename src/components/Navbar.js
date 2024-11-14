@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useDecodedToken from '../hooks/UseDecodedToken';
+import ThemeContext from '../context/ThemeContext';
 
 const Navbar = () => {
   const decodedToken = useDecodedToken();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -21,14 +23,14 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo y enlaces principales */}
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               {/* Aquí puedes agregar tu logo */}
-              <span className="text-blue-600 text-lg font-bold">VetCare</span>
+              <span className="text-blue-600 dark:text-white text-lg font-bold">VetCare</span>
             </div>
             
             {/* Enlaces de navegación - Escritorio */}
@@ -37,7 +39,7 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-colors duration-200"
+                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-b-2 border-transparent hover:border-blue-600 transition-colors duration-200"
                 >
                   {link.name}
                 </Link>
@@ -48,7 +50,13 @@ const Navbar = () => {
           {/* Botón de usuario y cerrar sesión */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">
+              <button
+                onClick={toggleTheme}
+                className="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-200"
+              >
+                {theme === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
+              </button>
+              <span className="text-sm text-gray-700 dark:text-gray-300">
                 {decodedToken?.nombre || 'Usuario'}
               </span>
               <button
@@ -64,7 +72,7 @@ const Navbar = () => {
           <div className="flex items-center sm:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
             >
               <span className="sr-only">Abrir menú principal</span>
               {/* Icono de menú */}
@@ -109,7 +117,7 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 hover:border-blue-600 transition-colors duration-200"
+              className="block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-blue-600 transition-colors duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
@@ -117,7 +125,7 @@ const Navbar = () => {
           ))}
           <button
             onClick={handleLogout}
-            className="block w-full text-left pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 hover:border-blue-600 transition-colors duration-200"
+            className="block w-full text-left pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-blue-600 transition-colors duration-200"
           >
             Cerrar Sesión
           </button>

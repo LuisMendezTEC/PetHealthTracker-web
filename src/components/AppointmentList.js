@@ -70,12 +70,12 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
   const filteredCitas = citas.filter(cita => cita.id_veterinario === idVeterinario);
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Citas</h2>
+    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow">
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Citas</h2>
       {loading ? (
-        <p>Cargando...</p>
+        <p className="text-gray-700 dark:text-gray-300">Cargando...</p>
       ) : error ? (
-        <p className="text-red-500">{error}</p>
+        <p className="text-red-500 dark:text-red-300">{error}</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredCitas.map((cita) => {

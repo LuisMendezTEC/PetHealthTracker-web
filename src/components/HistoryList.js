@@ -38,11 +38,11 @@ const HistoryList = ({ historiales }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Historiales de Mascotas</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Historiales de Mascotas</h2>
       {loading ? (
-        <p>Cargando...</p>
+        <p className="text-gray-600 dark:text-gray-300">Cargando...</p>
       ) : error ? (
-        <p className="text-red-500">{error}</p>
+        <p className="text-red-500 dark:text-red-400">{error}</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {historiales.map((historial) => {
@@ -53,17 +53,19 @@ const HistoryList = ({ historiales }) => {
               <div
                 key={historial.id}
                 onClick={() => handleCardClick(historial.id)}
-                className={`p-4 bg-white shadow-lg rounded-lg cursor-pointer transition transform hover:scale-105 ${selectedHistorial === historial.id ? 'border-blue-500 border-2' : ''}`}
+                className={`p-4 bg-white dark:bg-gray-700 shadow-lg rounded-lg cursor-pointer transition transform hover:scale-105 ${
+                  selectedHistorial === historial.id ? 'border-blue-500 dark:border-blue-400 border-2' : ''
+                }`}
               >
-                <h3 className="text-lg font-semibold text-blue-600">
+                <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
                   {mascota ? mascota.nombre_mascota : 'Mascota desconocida'}
                 </h3>
                 {cliente && (
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
                     <span className="font-semibold">Dueño:</span> {cliente.nombre_usuario}
                   </p>
                 )}
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
                   <span className="font-semibold">Fecha:</span> {new Date(historial.fecha).toLocaleDateString()}
                 </p>
 
@@ -71,17 +73,17 @@ const HistoryList = ({ historiales }) => {
                 {selectedHistorial === historial.id && (
                   <div className="mt-4">
                     {mascota && (
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-gray-500 dark:text-gray-300 text-sm">
                         <span className="font-semibold">Raza:</span> {mascota.raza}
                       </p>
                     )}
-                    <p className="text-gray-700 mt-2">
+                    <p className="text-gray-700 dark:text-gray-200 mt-2">
                       <span className="font-semibold">Tipo:</span> {historial.tipo}
                     </p>
-                    <p className="text-gray-700 mt-2">
+                    <p className="text-gray-700 dark:text-gray-200 mt-2">
                       <span className="font-semibold">Descripción:</span> {historial.descripcion}
                     </p>
-                    <p className="text-gray-700 mt-2">
+                    <p className="text-gray-700 dark:text-gray-200 mt-2">
                       <span className="font-semibold">Resultado:</span> {historial.resultado}
                     </p>
                   </div>
