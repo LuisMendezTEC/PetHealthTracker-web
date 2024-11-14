@@ -29,7 +29,6 @@ const Navbar = () => {
           {/* Logo y enlaces principales */}
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              {/* Aquí puedes agregar tu logo */}
               <span className="text-blue-600 dark:text-white text-lg font-bold">VetCare</span>
             </div>
             
@@ -47,15 +46,23 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Botón de usuario y cerrar sesión */}
+          {/* Toggle switch y cerrar sesión */}
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleTheme}
-                className="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-200"
-              >
-                {theme === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
-              </button>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={theme === 'dark'}
+                  onChange={toggleTheme}
+                  className="sr-only"
+                />
+                <div className="w-10 h-5 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300 ease-in-out"></div>
+                <div
+                  className={`absolute left-0 w-5 h-5 bg-white border rounded-full shadow transform transition-transform duration-300 ease-in-out ${
+                    theme === 'dark' ? 'translate-x-5' : 'translate-x-0'
+                  }`}
+                ></div>
+              </label>
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {decodedToken?.nombre || 'Usuario'}
               </span>
@@ -129,6 +136,23 @@ const Navbar = () => {
           >
             Cerrar Sesión
           </button>
+          {/* Toggle switch para el modo móvil */}
+          <div className="flex items-center pl-3 pr-4 py-2 border-l-4">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+                className="sr-only"
+              />
+              <div className="w-10 h-5 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300 ease-in-out"></div>
+              <div
+                className={`absolute left-0 w-5 h-5 bg-white border rounded-full shadow transform transition-transform duration-300 ease-in-out ${
+                  theme === 'dark' ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              ></div>
+            </label>
+          </div>
         </div>
       </div>
     </nav>
