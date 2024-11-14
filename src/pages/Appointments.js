@@ -27,6 +27,11 @@ const Appointments = () => {
     setLoading(false);
   };
 
+  // Función para eliminar la cita completada del estado
+  const onCompleteAppointment = (completedCitaId) => {
+    setCitas((prevCitas) => prevCitas.filter((cita) => cita.id !== completedCitaId));
+  };
+
   useEffect(() => { 
     fetchCitas();
   }, []);
@@ -64,7 +69,7 @@ const Appointments = () => {
             </div>
           ) : (
             citas.length > 0 ? (
-              <AppointmentList citas={citas} />
+              <AppointmentList citas={citas} onCompleteAppointment={onCompleteAppointment} />
             ) : !error && (
               <div className="text-center py-12">
                 <p className="text-gray-500">No hay citas para mostrar</p>
