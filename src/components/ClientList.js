@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 const ClientList = ({ usuarios, mascotas }) => {
   const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedPet, setSelectedPet] = useState(null); // Almacena la mascota seleccionada
+  const [showModal, setShowModal] = useState(false); // Controla la visibilidad del modal
 
   const handleCardClick = (usuario, event) => {
     event.stopPropagation(); // Evita que el evento se propague al contenedor principal
@@ -10,6 +12,17 @@ const ClientList = ({ usuarios, mascotas }) => {
 
   const handleContainerClick = () => {
     setSelectedClient(null); // Cierra todas las tarjetas
+  };
+
+  const handleImageClick = (mascota, event) => {
+    event.stopPropagation(); // Evita cerrar la tarjeta del cliente al hacer clic en la imagen
+    setSelectedPet(mascota);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedPet(null);
   };
 
   return (
@@ -26,7 +39,7 @@ const ClientList = ({ usuarios, mascotas }) => {
           >
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{usuario.nombre_usuario}</h3>
             <p className="text-gray-600 dark:text-gray-300">{usuario.correo}</p>
-            
+
             {/* Detalles de mascotas solo visibles si este usuario está seleccionado */}
             {selectedClient === usuario.id && (
               <div className="mt-4 p-2 bg-gray-200 dark:bg-gray-600 rounded-lg">
@@ -38,7 +51,8 @@ const ClientList = ({ usuarios, mascotas }) => {
                       <img
                         src={mascota.image_url}
                         alt={mascota.nombre_mascota}
-                        className="w-12 h-12 rounded-full object-cover"
+                        className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                        onClick={(event) => handleImageClick(mascota, event)}
                       />
                       <div>
                         <p className="text-gray-800 dark:text-gray-200 font-medium">
@@ -54,6 +68,37 @@ const ClientList = ({ usuarios, mascotas }) => {
           </div>
         ))}
       </div>
+
+      {/* Modal para mostrar la imagen grande */}
+      {showModal && selectedPet && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-lg max-w-lg w-full relative"
+            onClick={(e) => e.stopPropagation()} 
+          >
+            <button
+              className="absolute top-2 right-2 text-gray-500 dark:text-gray-300 hover:text-red-500"
+              onClick={closeModal}
+            >
+              ✕
+            </button>
+            <img
+              src={selectedPet.image_url}
+              alt={selectedPet.nombre_mascota}
+              className="w-full h-auto rounded-lg object-cover"
+            />
+            <div className="mt-4 text-center">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                {selectedPet.nombre_mascota}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">{selectedPet.especie}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
