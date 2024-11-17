@@ -1,6 +1,14 @@
 import React from 'react';
 
 const AppointmentCard = ({ cita, mascota, idVeterinario, onCardClick, onOpenModal }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Los meses en JavaScript son 0-indexed
+    const year = date.getUTCFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div
       onClick={() => onCardClick(cita.id)}
@@ -12,7 +20,7 @@ const AppointmentCard = ({ cita, mascota, idVeterinario, onCardClick, onOpenModa
         {mascota ? mascota.nombre_mascota : 'Mascota desconocida'}
       </h3>
       <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
-        <span className="font-semibold">Fecha:</span> {new Date(cita.fecha_cita).toLocaleDateString()}
+        <span className="font-semibold">Fecha:</span> {formatDate(cita.fecha_cita)}
       </p>
       <p className="text-gray-500 dark:text-gray-300 text-sm">
         <span className="font-semibold">Hora:</span> {cita.hora_cita}
