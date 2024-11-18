@@ -16,7 +16,7 @@ const Histories = () => {
     setLoading(true);
     setError('');
     try {
-      const url = `http://127.0.0.1:8000/citas-veterinario/${idVeterinario}`;
+      const url = `${process.env.REACT_APP_API_BASE_URL}/citas/veterinario/${idVeterinario}/`;
 
       const headers = {
         'Content-Type': 'application/json',
