@@ -20,8 +20,8 @@ const HistoryList = ({ historiales }) => {
     const fetchData = async () => {
       try {
         const [mascotasRes, clientesRes] = await Promise.all([
-          fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
           fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
         ]);
 
         if (!mascotasRes.ok || !clientesRes.ok) {
@@ -31,13 +31,12 @@ const HistoryList = ({ historiales }) => {
         const mascotasData = await mascotasRes.json();
         const clientesData = await clientesRes.json();
 
-        console.log(mascotasData, clientesData);
+        console.log('Mascotas:', mascotasData.data);
+        console.log('Clientes:', clientesData.data);
+        console.log('Historiales:', historiales);
 
         setMascotas(mascotasData.data || []);
         setClientes(clientesData.data || []);
-
-        console.log(mascotas, clientes);
-
       } catch (err) {
         setError(err.message || 'Error de conexión al servidor');
       }
@@ -60,10 +59,8 @@ const HistoryList = ({ historiales }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {historiales.map((historial) => {
-            const mascota = mascotas.find(m => m.id === historial.id_mascota);
+            const mascota = mascotas.find(m => Number(m.id) === Number(historial.id_mascota));
             const cliente = clientes.find(c => c.id === (mascota ? mascota.id_dueño : null));
-
-            {console.log(historiales)}
 
             return (
               <div
@@ -74,7 +71,7 @@ const HistoryList = ({ historiales }) => {
                 }`}
               >
                 <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
-                  {mascota ? mascota.nombre_mascota : 'Mascota desconocida'}
+                  {mascota ? mascota.nombre_mascota : t('historyList.unknown_pet')}
                 </h3>
                 {cliente && (
                   <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
