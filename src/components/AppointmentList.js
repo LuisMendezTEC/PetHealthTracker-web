@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useDecodedToken from '../hooks/UseDecodedToken';
 import AppointmentCard from './AppointmentCard';
 import CompleteAppointmentModal from './CompleteAppointmentModal';
@@ -11,6 +12,7 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ tipo: '', motivo: '', resultado: '' });
   const [currentCitaId, setCurrentCitaId] = useState(null);
+  const {t} = useTranslation();
   
   const decodedToken = useDecodedToken();
   const idVeterinario = decodedToken?.id;
@@ -71,9 +73,9 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
 
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Citas</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('appointmentsList.title')}</h2>
       {loading ? (
-        <p className="text-gray-700 dark:text-gray-300">Cargando...</p>
+        <p className="text-gray-700 dark:text-gray-300">{t('appointmentsList.loading')}</p>
       ) : error ? (
         <p className="text-red-500 dark:text-red-300">{error}</p>
       ) : (

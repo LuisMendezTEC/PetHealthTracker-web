@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UserProfile = () => {
+  const { t } = useTranslation();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,8 +38,8 @@ const UserProfile = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Perfil del Usuario</h1>
-        <p className="text-gray-600">Información detallada del usuario registrado</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('useProfile.page_title')}</h1>
+        <p className="text-gray-600">{t('useProfile.page_subtitle')}</p>
       </div>
 
       {/* Results Section */}
@@ -61,20 +63,20 @@ const UserProfile = () => {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-2 text-gray-600">Cargando información del usuario...</span>
+              <span className="ml-2 text-gray-600">{t('useProfile.loading_user_info')}</span>
             </div>
           ) : (
             user ? (
               <div className="text-gray-900">
-                <h2 className="text-xl font-bold mb-4">Datos del Usuario</h2>
-                <p><span className="font-medium">Nombre:</span> {user.name}</p>
-                <p><span className="font-medium">Correo:</span> {user.email}</p>
-                <p><span className="font-medium">Rol:</span> {user.role}</p>
-                <p><span className="font-medium">Registrado el:</span> {new Date(user.registeredDate).toLocaleDateString()}</p>
+                <h2 className="text-xl font-bold mb-4">{t('useProfile.user_data')}</h2>
+                <p><span className="font-medium">{t('useProfile.name')}:</span> {user.name}</p>
+                <p><span className="font-medium">{t('useProfile.email')}:</span> {user.email}</p>
+                <p><span className="font-medium">{t('useProfile.role')}:</span> {user.role}</p>
+                <p><span className="font-medium">{t('registered_on')}:</span> {new Date(user.registeredDate).toLocaleDateString()}</p>
               </div>
             ) : !error && (
               <div className="text-center py-12">
-                <p className="text-gray-500">No hay información del usuario para mostrar</p>
+                <p className="text-gray-500">{t('useProfile.no_user_info')}</p>
               </div>
             )
           )}

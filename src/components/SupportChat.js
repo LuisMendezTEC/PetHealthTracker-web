@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaHeadset } from 'react-icons/fa';
 
 const SupportChat = () => {
+  const {t} = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hola 👋 ¿Cómo te podemos ayudar hoy? Selecciona una opción o escribe tu consulta:", sender: "support" }
+    { text: t('supportChat.text'), sender: "support" }
   ]);
   const [newMessage, setNewMessage] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showOptions, setShowOptions] = useState(false);
 
   const responseOptions = {
-    citas: "¿Tienes problemas para gestionar tus citas? Puedes ir a la sección de 'Citas' en el menú principal. Déjame saber si necesitas una guía más detallada.",
-    historiales: "Para acceder a los historiales de pacientes, ve a 'Historiales' desde el menú. ¿Hay algo específico con lo que necesitas ayuda en esta sección?",
-    modoOscuro: "Para cambiar el tema de la aplicación a modo oscuro, utiliza el interruptor de tema en la esquina superior. ¿Te gustaría asistencia adicional con la personalización?",
-    problemas: "Lamentamos que estés experimentando problemas. Por favor, describe el problema o el error y un desarrollador te ayudará a resolverlo lo antes posible.",
-    general: "Gracias por tu mensaje. Un miembro de nuestro equipo de soporte técnico te asistirá en breve."
+    citas: t('supportChat.citas'),
+    historiales: t('supportChat.historiales'),
+    modoOscuro: t('supportChat.modoOscuro'),
+    problemas: t('supportChat.problemas'),
+    general: t('supportChat.general')
   };
 
   const getAutoResponse = (message) => {
@@ -58,7 +61,7 @@ const SupportChat = () => {
   };
 
   const resetChat = () => {
-    setMessages([{ text: "Hola 👋 ¿Cómo te podemos ayudar hoy? Selecciona una opción o escribe tu consulta:", sender: "support" }]);
+    setMessages([{ text: t('supportChat.text'), sender: "support" }]);
     setShowSuggestions(true);
     setShowOptions(false);
     setNewMessage("");
@@ -82,7 +85,7 @@ const SupportChat = () => {
       {isOpen && (
         <div className="fixed bottom-24 right-4 md:right-8 w-96 max-w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 ease-in-out">
           <div className="bg-blue-600 text-white p-3 text-center font-semibold rounded-t-lg">
-            Soporte Técnico para Veterinarios
+            {t('supportChat.technical_support')}
           </div>
           <div className="p-4 max-h-80 overflow-y-auto">
             {messages.map((msg, index) => (
@@ -106,28 +109,28 @@ const SupportChat = () => {
             {showSuggestions && (
               <div className="flex flex-wrap gap-2 mt-4">
                 <button
-                  onClick={() => handleSuggestionClick("¿Cómo gestionar mis citas?", "citas")}
+                  onClick={() => handleSuggestionClick(t('supportChat.gestionar_cita'), "citas")}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Gestión de citas
+                  {t('supportChat.manage_appointments')}
                 </button>
                 <button
-                  onClick={() => handleSuggestionClick("¿Cómo ver los historiales médicos?", "historiales")}
+                  onClick={() => handleSuggestionClick(t('supportChat.ver_historiales'), "historiales")}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Ver historiales médicos
+                  {t('supportChat.view_medical_records')}
                 </button>
                 <button
-                  onClick={() => handleSuggestionClick("¿Cómo activar el modo oscuro?", "modoOscuro")}
+                  onClick={() => handleSuggestionClick(t('supportChat.activar_modo_oscuro'), "modoOscuro")}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Activar modo oscuro
+                  {t('supportChat.enable_dark_mode')}
                 </button>
                 <button
-                  onClick={() => handleSuggestionClick("Tengo un problema técnico", "problemas")}
+                  onClick={() => handleSuggestionClick(t('supportChat.problemas_tecnicos'), "problemas")}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Problema técnico
+                  {t('supportChat.technical_problem')}
                 </button>
               </div>
             )}
@@ -139,13 +142,13 @@ const SupportChat = () => {
                   onClick={newQuery}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Realizar otra consulta
+                  {t('supportChat.another_query')}
                 </button>
                 <button
                   onClick={resetChat}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-blue-500 hover:text-white transition"
                 >
-                  Terminar chat
+                  {t('supportChat.end_chat')}
                 </button>
               </div>
             )}
@@ -157,14 +160,14 @@ const SupportChat = () => {
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-800 dark:text-white"
-              placeholder="Describe tu problema o consulta..."
+              placeholder={t('supportChat.describe_issue')}
             />
             <button
               onClick={handleSendMessage}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
               style={{ minWidth: "72px" }}
             >
-              Enviar
+             {t('supportChat.send')}
             </button>
           </div>
         </div>

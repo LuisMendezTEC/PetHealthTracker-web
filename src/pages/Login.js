@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setToken }) => {
+  const {t} = useTranslation();
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
@@ -89,7 +91,7 @@ const Login = ({ setToken }) => {
               alt="Cargando..."
               className="w-1000 h-1000 mb-4" 
             />
-            <p className="text-gray-700">Cargando...</p>
+            <p className="text-gray-700">{t('login.loading')}</p>
           </div>
         ) : (
           <>
@@ -108,7 +110,7 @@ const Login = ({ setToken }) => {
               <form onSubmit={handleSubmitRegister} className="space-y-4">
                 <div>
                   <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
-                    Nombre
+                    {t('login.name_label')}
                   </label>
                   <input
                     type="text"
@@ -122,7 +124,7 @@ const Login = ({ setToken }) => {
   
                 <div>
                   <label htmlFor="puesto" className="block text-sm font-medium text-gray-700">
-                    Puesto
+                    {t('login.role_label')}
                   </label>
                   <select
                     id="puesto"
@@ -131,15 +133,15 @@ const Login = ({ setToken }) => {
                     onChange={(e) => setPuesto(e.target.value)}
                     required
                   >
-                    <option value="">Seleccione un puesto</option>
-                    <option value="Veterinario">Veterinario</option>
-                    <option value="Recepcionista">Recepcionista</option>
+                    <option value="">{t('login.select_role')}</option>
+                    <option value="Veterinario">{t('login.veterinarian_role')}</option>
+                    <option value="Recepcionista">{t('login.receptionist_role')}</option>
                   </select>
                 </div>
   
                 <div>
                   <label htmlFor="correo" className="block text-sm font-medium text-gray-700">
-                    Correo electrónico
+                    {t('login.email_label')}
                   </label>
                   <input
                     type="email"
@@ -153,7 +155,7 @@ const Login = ({ setToken }) => {
   
                 <div>
                   <label htmlFor="contraseña" className="block text-sm font-medium text-gray-700">
-                    Contraseña
+                    {t('login.password_label')}
                   </label>
                   <input
                     type="password"
@@ -171,14 +173,14 @@ const Login = ({ setToken }) => {
                   type="submit"
                   className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
                 >
-                  Registrarse
+                  {t('login.registering')}
                 </button>
               </form>
             ) : (
               <form onSubmit={handleSubmitLogin} className="space-y-4">
                 <div>
                   <label htmlFor="correo" className="block text-sm font-medium text-gray-700">
-                    Correo electrónico
+                    {t('login.email_label')}
                   </label>
                   <input
                     type="email"
@@ -192,7 +194,7 @@ const Login = ({ setToken }) => {
   
                 <div>
                   <label htmlFor="contraseña" className="block text-sm font-medium text-gray-700">
-                    Contraseña
+                    {t('login.password_label')}
                   </label>
                   <input
                     type="password"
@@ -210,7 +212,7 @@ const Login = ({ setToken }) => {
                   type="submit"
                   className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
                 >
-                  Iniciar Sesión
+                  {t('login.login_button')}
                 </button>
               </form>
             )}
@@ -222,8 +224,8 @@ const Login = ({ setToken }) => {
                 className="text-sm text-blue-600 hover:text-blue-500 transition-colors"
               >
                 {isRegistering
-                  ? '¿Ya tienes cuenta? Iniciar Sesión'
-                  : '¿No tienes cuenta? Registrarse'}
+                  ? t('login.already_have_account')
+                  : t('login.no_account')}
               </button>
             </div>
           </>

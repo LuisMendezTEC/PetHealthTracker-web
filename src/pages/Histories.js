@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import HistoryList from '../components/HistoryList';
-import useDecodedToken from '../hooks/UseDecodedToken.js'; 
+import useDecodedToken from '../hooks/UseDecodedToken.js';
 
 const Histories = () => {
+  const { t } = useTranslation();
   const [historiales, setHistoriales] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,7 +29,7 @@ const Histories = () => {
       if (response.ok) {
         setHistoriales(data.data);
         if (data.data.length === 0) {
-          setError('No se encontraron historiales para este veterinario');
+          setError(t('history.no_histories'));
         }
       } else {
         setError(data.message || 'Error al cargar los historiales');
@@ -51,8 +53,8 @@ const Histories = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Historiales Clínicos</h1>
-        <p className="text-gray-600 dark:text-gray-300">Consulta los historiales clínicos asociados a tu cuenta</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('history.page_title')}</h1>
+        <p className="text-gray-600 dark:text-gray-300">{t('history.page_subtitle')}</p>
       </div>
 
       {/* Results Section */}
@@ -76,15 +78,15 @@ const Histories = () => {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
-              <span className="ml-2 text-gray-600 dark:text-gray-300">Cargando historiales...</span>
+              <span className="ml-2 text-gray-600 dark:text-gray-300">{t('history.loading_histories')}</span>
             </div>
           ) : (
             historiales.length > 0 ? (
               <HistoryList historiales={historiales} />
             ) : !error && (
               <div className="text-center py-12">
-                <p className="text-gray-500 dark:text-gray-400">No hay historiales para mostrar</p>
-                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Los historiales asociados a tu cuenta aparecerán aquí</p>
+                <p className="text-gray-500 dark:text-gray-400">{t('history.no_histories')}</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">{t('history.no_histories_action')}</p>
               </div>
             )
           )}

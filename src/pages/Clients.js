@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ClientList from '../components/ClientList';
 
 const Clients = () => {
@@ -6,6 +7,7 @@ const Clients = () => {
   const [mascotasLista, setMascotasLista] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const fetchData = async () => {
     setLoading(true);
@@ -42,8 +44,8 @@ const Clients = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Clientes</h1>
-        <p className="text-gray-600 dark:text-gray-300">Consulta y gestiona la lista de clientes registrados</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('clients.page_title')}</h1>
+        <p className="text-gray-600 dark:text-gray-300">{t('clients.page_subtitle')}</p>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
@@ -66,15 +68,15 @@ const Clients = () => {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
-              <span className="ml-2 text-gray-600 dark:text-gray-300">Cargando datos...</span>
+              <span className="ml-2 text-gray-600 dark:text-gray-300">{t('clients.loading_data')}</span>
             </div>
           ) : (
             usuarios.length > 0 && mascotasLista.length > 0 ? (
               <ClientList usuarios={usuarios} mascotas={mascotasLista} />
             ) : !error && (
               <div className="text-center py-12">
-                <p className="text-gray-500 dark:text-gray-400">No hay datos para mostrar</p>
-                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Realiza una acción para ver los resultados</p>
+                <p className="text-gray-500 dark:text-gray-400">{t('clients.no_data')}</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">{t('clients.no_data_action')}</p>
               </div>
             )
           )}

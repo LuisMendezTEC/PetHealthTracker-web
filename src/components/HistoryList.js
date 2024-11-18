@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const HistoryList = ({ historiales }) => {
   const [mascotas, setMascotas] = useState([]);
@@ -6,6 +7,7 @@ const HistoryList = ({ historiales }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [selectedHistorial, setSelectedHistorial] = useState(null); // Para controlar qué historial está expandido
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,9 +40,9 @@ const HistoryList = ({ historiales }) => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Historiales de Mascotas</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('historyList.history')}</h2>
       {loading ? (
-        <p className="text-gray-600 dark:text-gray-300">Cargando...</p>
+        <p className="text-gray-600 dark:text-gray-300">{t('historyList.loading')}</p>
       ) : error ? (
         <p className="text-red-500 dark:text-red-400">{error}</p>
       ) : (
@@ -62,11 +64,11 @@ const HistoryList = ({ historiales }) => {
                 </h3>
                 {cliente && (
                   <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
-                    <span className="font-semibold">Dueño:</span> {cliente.nombre_usuario}
+                    <span className="font-semibold">{t('historyList.owner')}:</span> {cliente.nombre_usuario}
                   </p>
                 )}
                 <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
-                  <span className="font-semibold">Fecha:</span> {new Date(historial.fecha).toLocaleDateString()}
+                  <span className="font-semibold">{t('historyList.date')}:</span> {new Date(historial.fecha).toLocaleDateString()}
                 </p>
 
                 {/* Detalles adicionales visibles solo cuando se hace clic */}
@@ -74,17 +76,17 @@ const HistoryList = ({ historiales }) => {
                   <div className="mt-4">
                     {mascota && (
                       <p className="text-gray-500 dark:text-gray-300 text-sm">
-                        <span className="font-semibold">Raza:</span> {mascota.raza}
+                        <span className="font-semibold">{t('historyList.breed')}:</span> {mascota.raza}
                       </p>
                     )}
                     <p className="text-gray-700 dark:text-gray-200 mt-2">
-                      <span className="font-semibold">Tipo:</span> {historial.tipo}
+                      <span className="font-semibold">{t('historyList.type')}:</span> {historial.tipo}
                     </p>
                     <p className="text-gray-700 dark:text-gray-200 mt-2">
-                      <span className="font-semibold">Descripción:</span> {historial.descripcion}
+                      <span className="font-semibold">{t('historyList.description')}:</span> {historial.descripcion}
                     </p>
                     <p className="text-gray-700 dark:text-gray-200 mt-2">
-                      <span className="font-semibold">Resultado:</span> {historial.resultado}
+                      <span className="font-semibold">{t('historyList.result')}:</span> {historial.resultado}
                     </p>
                   </div>
                 )}

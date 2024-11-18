@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AppointmentCard = ({ cita, mascota, idVeterinario, onCardClick, onOpenModal }) => {
+  const {t} = useTranslation();
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getUTCDate()).padStart(2, '0');
@@ -20,13 +23,13 @@ const AppointmentCard = ({ cita, mascota, idVeterinario, onCardClick, onOpenModa
         {mascota ? mascota.nombre_mascota : 'Mascota desconocida'}
       </h3>
       <p className="text-gray-500 dark:text-gray-300 text-sm mt-1">
-        <span className="font-semibold">Fecha:</span> {formatDate(cita.fecha_cita)}
+        <span className="font-semibold">{t('appointmentsCard.date')}:</span> {formatDate(cita.fecha_cita)}
       </p>
       <p className="text-gray-500 dark:text-gray-300 text-sm">
-        <span className="font-semibold">Hora:</span> {cita.hora_cita}
+        <span className="font-semibold">{t('appointmentsCard.time')}:</span> {cita.hora_cita}
       </p>
       <p className="text-gray-500 dark:text-gray-300 text-sm">
-        <span className="font-semibold">Veterinario ID:</span> {idVeterinario}
+        <span className="font-semibold">{t('appointmentsCard.vetId')}:</span> {idVeterinario}
       </p>
 
       <button
@@ -36,7 +39,7 @@ const AppointmentCard = ({ cita, mascota, idVeterinario, onCardClick, onOpenModa
         }}
         className="mt-4 px-4 py-2 bg-green-500 dark:bg-green-600 text-white rounded hover:bg-green-600 dark:hover:bg-green-700 transition"
       >
-        Completar Cita
+        {t('complete')}
       </button>
     </div>
   );

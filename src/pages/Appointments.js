@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AppointmentList from '../components/AppointmentList';
 
 const Appointments = () => {
   const [citas, setCitas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const fetchCitas = async () => {
     setLoading(true);
@@ -40,8 +42,8 @@ const Appointments = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Citas</h1>
-        <p className="text-gray-600 dark:text-gray-300">Consulta y gestiona las citas registradas</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('appointments.page_title')}</h1>
+        <p className="text-gray-600 dark:text-gray-300">{t('appointments.page_subtitle')}</p>
       </div>
 
       {/* Sección de resultados con fondo ajustado para modo oscuro */}
@@ -65,15 +67,15 @@ const Appointments = () => {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400"></div>
-              <span className="ml-2 text-gray-600 dark:text-gray-300">Cargando citas...</span>
+              <span className="ml-2 text-gray-600 dark:text-gray-300">{t('appointments.loading_appointments')}</span>
             </div>
           ) : (
             citas.length > 0 ? (
               <AppointmentList citas={citas} onCompleteAppointment={onCompleteAppointment} />
             ) : !error && (
               <div className="text-center py-12">
-                <p className="text-gray-500 dark:text-gray-400">No hay citas para mostrar</p>
-                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Realiza una acción para ver los resultados</p>
+                <p className="text-gray-500 dark:text-gray-400">{t('appointments.no_appointments')}</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">{t('appointments.no_appointments_action')}</p>
               </div>
             )
           )}

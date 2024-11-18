@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ClientList = ({ usuarios, mascotas }) => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedPet, setSelectedPet] = useState(null); // Almacena la mascota seleccionada
   const [showModal, setShowModal] = useState(false); // Controla la visibilidad del modal
+  const { t } = useTranslation();
 
   const handleCardClick = (usuario, event) => {
     event.stopPropagation(); // Evita que el evento se propague al contenedor principal
@@ -43,7 +45,7 @@ const ClientList = ({ usuarios, mascotas }) => {
             {/* Detalles de mascotas solo visibles si este usuario está seleccionado */}
             {selectedClient === usuario.id && (
               <div className="mt-4 p-2 bg-gray-200 dark:bg-gray-600 rounded-lg">
-                <h4 className="text-md font-semibold mb-2 text-gray-900 dark:text-gray-100">Mascotas:</h4>
+                <h4 className="text-md font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('clientList.pets')}:</h4>
                 {mascotas
                   .filter((mascota) => mascota.id_dueño === usuario.id)
                   .map((mascota) => (
@@ -58,8 +60,8 @@ const ClientList = ({ usuarios, mascotas }) => {
                         <p className="text-gray-800 dark:text-gray-200 font-medium">
                           {mascota.nombre_mascota} ({mascota.especie})
                         </p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">Raza: {mascota.raza}</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">Nacimiento: {mascota.fecha_nacimiento}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('clientList.breed')}: {mascota.raza}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">{t('clientList.date')}: {mascota.fecha_nacimiento}</p>
                       </div>
                     </div>
                   ))}
