@@ -11,8 +11,13 @@ const Appointments = () => {
   const fetchCitas = async () => {
     setLoading(true);
     setError('');
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://127.0.0.1:8000/citas/');
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/citas/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       if (response.ok) {
         setCitas(data.data);

@@ -9,13 +9,19 @@ const Clients = () => {
   const [error, setError] = useState('');
   const { t } = useTranslation();
 
+  const token = localStorage.getItem('token')
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+
   const fetchData = async () => {
     setLoading(true);
     setError('');
     try {
       const [usuariosRes, mascotasRes] = await Promise.all([
-        fetch('http://127.0.0.1:8000/check-table/?tabla=Clientes'),
-        fetch('http://127.0.0.1:8000/check-table/?tabla=Mascotas')
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
       ]);
 
       if (!usuariosRes.ok) throw new Error('Error al cargar los clientes');

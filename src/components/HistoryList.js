@@ -9,12 +9,19 @@ const HistoryList = ({ historiales }) => {
   const [selectedHistorial, setSelectedHistorial] = useState(null); // Para controlar qué historial está expandido
   const { t } = useTranslation();
 
+  const token = localStorage.getItem('token');
+
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [mascotasRes, clientesRes] = await Promise.all([
-          fetch('http://127.0.0.1:8000/check-table/?tabla=Mascotas'),
-          fetch('http://127.0.0.1:8000/check-table/?tabla=Clientes')
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
         ]);
 
         if (!mascotasRes.ok || !clientesRes.ok) {
@@ -24,8 +31,13 @@ const HistoryList = ({ historiales }) => {
         const mascotasData = await mascotasRes.json();
         const clientesData = await clientesRes.json();
 
+        console.log(mascotasData, clientesData);
+
         setMascotas(mascotasData.data || []);
         setClientes(clientesData.data || []);
+
+        console.log(mascotas, clientes);
+
       } catch (err) {
         setError(err.message || 'Error de conexión al servidor');
       }
@@ -50,6 +62,8 @@ const HistoryList = ({ historiales }) => {
           {historiales.map((historial) => {
             const mascota = mascotas.find(m => m.id === historial.id_mascota);
             const cliente = clientes.find(c => c.id === (mascota ? mascota.id_dueño : null));
+
+            {console.log(historiales)}
 
             return (
               <div

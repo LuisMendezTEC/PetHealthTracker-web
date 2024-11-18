@@ -17,10 +17,13 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
   const decodedToken = useDecodedToken();
   const idVeterinario = decodedToken?.id;
 
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mascotasRes = await fetch('http://127.0.0.1:8000/check-table/?tabla=Mascotas');
+        const mascotasRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }); // Petición para obtener las mascotas;
         if (!mascotasRes.ok) throw new Error('Error al cargar los datos de mascotas');
         
         const mascotasData = await mascotasRes.json();
@@ -50,9 +53,9 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
 
   const handleComplete = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/citas/${currentCitaId}/completar`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/citas/${currentCitaId}/completar`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(modalData),
       });
       if (!response.ok) throw new Error('Error al completar la cita');
