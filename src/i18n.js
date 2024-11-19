@@ -101,8 +101,8 @@ i18n
           },
           dashboard: {
             page_title: "Admin Dashboard",
-            scheduled_appointments: "Scheduled Appointments",
-            completed_appointments: "Completed Appointments",
+            scheduled_appointments: "Completed Appointments",
+            completed_appointments: "Scheduled Appointments",
             pending_appointments: "Pending Appointments",
             active_users: "Active Users",
             clients: "Clients",
@@ -115,8 +115,8 @@ i18n
           pdfGenerator: {
             report_title: "Dashboard Report",
             appointment_summary: "Appointment Summary",
-            scheduled_appointments: "Scheduled Appointments",
-            completed_appointments: "Completed Appointments",
+            scheduled_appointments: "Completed Appointments",
+            completed_appointments: "Scheduled Appointments",
             pending_appointments: "Pending Appointments",
             active_users: "Active Users",
             clients: "Clients",
@@ -295,8 +295,8 @@ i18n
           },
           dashboard: {
             page_title: "Panel de Administración",
-            scheduled_appointments: "Citas Programadas",
-            completed_appointments: "Citas Realizadas",
+            scheduled_appointments: "Citas Realizadas",
+            completed_appointments: "Citas Programadas",
             pending_appointments: "Citas Pendientes",
             active_users: "Usuarios Activos",
             clients: "Clientes",
@@ -309,8 +309,8 @@ i18n
           pdfGenerator: {
             report_title: "Reporte del Dashboard",
             appointment_summary: "Resumen de Citas",
-            scheduled_appointments: "Citas Programadas",
-            completed_appointments: "Citas Realizadas",
+            scheduled_appointments: "Citas Realizadas",
+            completed_appointments: "Citas Programadas",
             pending_appointments: "Citas Pendientes",
             active_users: "Usuarios Activos",
             clients: "Clientes",
