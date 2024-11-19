@@ -12,20 +12,20 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ tipo: '', motivo: '', resultado: '' });
   const [currentCitaId, setCurrentCitaId] = useState(null);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   
   const decodedToken = useDecodedToken();
   const idVeterinario = decodedToken?.id;
 
-  const token = localStorage.getItem('token');
-  const headers = { 'Authorization': `Bearer ${token}` };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const mascotasRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }); // Petición para obtener las mascotas;
+        const token = localStorage.getItem('token');
+        const headers = { 'Authorization': `Bearer ${token}` }; // Crear headers dinámicamente
+
+        const mascotasRes = await fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers });
         if (!mascotasRes.ok) throw new Error('Error al cargar los datos de mascotas');
-        
+
         const mascotasData = await mascotasRes.json();
         setMascotas(mascotasData.data || []);
       } catch (err) {
@@ -34,7 +34,7 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, []); // Sin dependencias relacionadas con headers
 
   const handleCardClick = (id) => {
     setSelectedCita(selectedCita === id ? null : id);
@@ -53,9 +53,12 @@ const AppointmentList = ({ citas, onCompleteAppointment }) => {
 
   const handleComplete = async () => {
     try {
+      const token = localStorage.getItem('token'); // Obtener token dinámicamente
+      const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/citas/${currentCitaId}/completar`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        headers,
         body: JSON.stringify(modalData),
       });
       if (!response.ok) throw new Error('Error al completar la cita');

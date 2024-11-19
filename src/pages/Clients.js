@@ -9,43 +9,42 @@ const Clients = () => {
   const [error, setError] = useState('');
   const { t } = useTranslation();
 
-  const token = localStorage.getItem('token')
-  const headers = {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  };
-
-  const fetchData = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const [usuariosRes, mascotasRes] = await Promise.all([
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
-      ]);
-
-      if (!usuariosRes.ok) throw new Error('Error al cargar los clientes');
-      if (!mascotasRes.ok) throw new Error('Error al cargar las mascotas');
-
-      const usuarioData = await usuariosRes.json();
-      const mascotaData = await mascotasRes.json();
-
-      setUsuarios(usuarioData.data || []);
-      setMascotasLista(mascotaData.data || []);
-
-      if (usuarioData.data.length === 0) setError('No se encontraron clientes');
-      if (mascotaData.data.length === 0 && usuarioData.data.length > 0) setError('No se encontraron mascotas asociadas a los clientes');
-
-    } catch (error) {
-      setError(error.message || 'Error de conexión al servidor');
-      console.error('Error fetching data:', error);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const token = localStorage.getItem('token'); // Obtener token dinámicamente
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
+
+        const [usuariosRes, mascotasRes] = await Promise.all([
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
+          fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
+        ]);
+
+        if (!usuariosRes.ok) throw new Error('Error al cargar los clientes');
+        if (!mascotasRes.ok) throw new Error('Error al cargar las mascotas');
+
+        const usuarioData = await usuariosRes.json();
+        const mascotaData = await mascotasRes.json();
+
+        setUsuarios(usuarioData.data || []);
+        setMascotasLista(mascotaData.data || []);
+
+        if (usuarioData.data.length === 0) setError('No se encontraron clientes');
+        if (mascotaData.data.length === 0 && usuarioData.data.length > 0) setError('No se encontraron mascotas asociadas a los clientes');
+      } catch (error) {
+        setError(error.message || 'Error de conexión al servidor');
+        console.error('Error fetching data:', error);
+      }
+      setLoading(false);
+    };
+
     fetchData();
-  }, []);
+  }, []); // Sin dependencias porque fetchData está dentro del efecto
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

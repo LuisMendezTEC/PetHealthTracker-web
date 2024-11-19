@@ -41,7 +41,7 @@ const Histories = () => {
       setHistoriales([]);
     }
     setLoading(false);
-  }, [idVeterinario]);
+  }, [idVeterinario, t]); // Incluye `t` como dependencia
 
   useEffect(() => {
     if (idVeterinario) {
