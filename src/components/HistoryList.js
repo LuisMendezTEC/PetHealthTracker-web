@@ -9,16 +9,15 @@ const HistoryList = ({ historiales }) => {
   const [selectedHistorial, setSelectedHistorial] = useState(null); // Para controlar qué historial está expandido
   const { t } = useTranslation();
 
-  const token = localStorage.getItem('token');
-
-  const headers = {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json',
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token'); // Obtener el token dinámicamente
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
+
         const [mascotasRes, clientesRes] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_BASE_URL}/mascotas/`, { headers }),
           fetch(`${process.env.REACT_APP_API_BASE_URL}/clientes/`, { headers }),
@@ -43,7 +42,7 @@ const HistoryList = ({ historiales }) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [historiales]); // Agrega `historiales` como dependencia
 
   const handleCardClick = (id) => {
     setSelectedHistorial(selectedHistorial === id ? null : id);
