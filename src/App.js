@@ -7,6 +7,7 @@ import Appointments from './pages/Appointments';
 import Histories from './pages/Histories';
 import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
+import Vaccinations from './pages/Vaccinations';
 import SupportChat from './components/SupportChat';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -65,8 +66,9 @@ function App() {
               <Route path="/" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Clients /></PrivateRoute>} />
               <Route path="/citas" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Appointments /></PrivateRoute>} />
               <Route path="/historiales" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Histories /></PrivateRoute>} />
-              <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
+              <Route path="/user-profile" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
               <Route path="/dashboard" element={<PrivateRoute allowedRoles={['Administrador']}><Dashboard /></PrivateRoute>} />
+              <Route path="/vaccinations" element={<PrivateRoute allowedRoles={['Veterinario']}><Vaccinations /></PrivateRoute>} />
             </Routes>
             {token && <SupportChat />} {/* Muestra el soporte solo si hay un usuario autenticado */}
           </div>

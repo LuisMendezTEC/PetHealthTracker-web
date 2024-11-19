@@ -31,6 +31,9 @@ const Navbar = () => {
     ...(decodedToken?.role === "Administrador"
       ? [{ name: t("nav.dashboard"), path: "/dashboard" }]
       : []),
+    ...(decodedToken?.role === "Veterinario"
+      ? [{ name: t("nav.vaccines"), path: "/vaccinations" }]
+      : []),
   ];
 
   return (
