@@ -9,6 +9,7 @@ import UserProfile from './pages/UserProfile';
 import Dashboard from './pages/Dashboard';
 import SupportChat from './components/SupportChat';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 // Función para decodificar el token JWT y obtener el payload
 const decodeToken = (token) => {
@@ -55,20 +56,22 @@ function App() {
 
   return (
     <ThemeProvider> {/* Proveedor de tema oscuro/claro */}
-      <Router>
-        <div className="bg-gray-100 dark:bg-gray-900 min-h-screen"> {/* Aplica clases de Tailwind para modo oscuro */}
-          {token && <Navbar />}
-          <Routes>
-            <Route path="/login" element={<Login setToken={setToken} />} />
-            <Route path="/" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Clients /></PrivateRoute>} />
-            <Route path="/citas" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Appointments /></PrivateRoute>} />
-            <Route path="/historiales" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Histories /></PrivateRoute>} />
-            <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
-            <Route path="/dashboard" element={<PrivateRoute allowedRoles={['Administrador']}><Dashboard /></PrivateRoute>} />
-          </Routes>
-          {token && <SupportChat />} {/* Muestra el soporte solo si hay un usuario autenticado */}
-        </div>
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <div className="bg-gray-100 dark:bg-gray-900 min-h-screen"> {/* Aplica clases de Tailwind para modo oscuro */}
+            {token && <Navbar />}
+            <Routes>
+              <Route path="/login" element={<Login setToken={setToken} />} />
+              <Route path="/" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Clients /></PrivateRoute>} />
+              <Route path="/citas" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Appointments /></PrivateRoute>} />
+              <Route path="/historiales" element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><Histories /></PrivateRoute>} />
+              <Route path='/user-profile' element={<PrivateRoute allowedRoles={['Administrador', 'Recepcionista', 'Veterinario']}><UserProfile /></PrivateRoute>} />
+              <Route path="/dashboard" element={<PrivateRoute allowedRoles={['Administrador']}><Dashboard /></PrivateRoute>} />
+            </Routes>
+            {token && <SupportChat />} {/* Muestra el soporte solo si hay un usuario autenticado */}
+          </div>
+        </Router>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

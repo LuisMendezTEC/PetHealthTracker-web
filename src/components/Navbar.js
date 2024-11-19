@@ -9,24 +9,19 @@ import {
   MdClose,
 } from "react-icons/md";
 import ThemeContext from "../context/ThemeContext";
+import LanguageContext from "../context/LanguageContext";
 import useDecodedToken from "../hooks/UseDecodedToken";
 
 const Navbar = () => {
   const decodedToken = useDecodedToken();
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState(i18n.language);
+  const { language, toggleLanguage } = useContext(LanguageContext);
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
-  };
-
-  const toggleLanguage = () => {
-    const newLanguage = language === "en" ? "es" : "en";
-    i18n.changeLanguage(newLanguage);
-    setLanguage(newLanguage);
   };
 
   const navigationLinks = [
