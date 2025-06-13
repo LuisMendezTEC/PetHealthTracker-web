@@ -1,6 +1,38 @@
-# Getting Started with Create React App
+# Pet Health Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pet Health Tracker is a web application designed to help veterinary clinics manage patient information, appointments, and medical histories efficiently. It provides a role-based interface for administrators, receptionists, and veterinarians, ensuring that users have access to the features relevant to their roles.
+
+## Features
+
+* **Role-Based Access Control**:
+    * **Administrator**: Can access all features, including a dashboard with clinic-wide statistics.
+    * **Receptionist**: Can manage clients and appointments.
+    * **Veterinarian**: Can manage clients, appointments, medical histories, and vaccinations.
+* **Client Management**: View and manage a list of clients and their pets.
+* **Appointment Scheduling**: Create, view, and complete appointments.
+* **Medical Records**: Access and view detailed medical histories for pets.
+* **Vaccination Tracking**: (Veterinarian-only) Assign and track pet vaccinations.
+* **Dashboard**: (Administrator-only) An overview of key clinic metrics, including appointment statistics, active users, total pets, and average appointments per veterinarian.
+* **PDF Report Generation**: Administrators can generate a PDF summary of the dashboard statistics.
+* **Internationalization**: The application supports both English and Spanish.
+* **Dark/Light Theme**: Users can switch between dark and light themes for better visual comfort.
+* **Live Support Chat**: A chat widget for users to get quick support.
+
+## Tech Stack
+
+* **Frontend**:
+    * [React](https://reactjs.org/)
+    * [React Router](https://reactrouter.com/) for routing.
+    * [Tailwind CSS](https://tailwindcss.com/) for styling.
+* **Backend**:
+    * FastAPI (Python)
+    * The backend code is located in the [PetHealthTracker-backend-Deploy](https://github.com/rooseveltalej/PetHealthTracker-backend-Deploy) repository.
+* **Internationalization**:
+    * [i18next](https://www.i18next.com/) with [react-i18next](https://react.i18next.com/).
+* **Charting**:
+    * [Recharts](https://recharts.org/) and [Chart.js](https://www.chartjs.org/) for data visualization on the dashboard.
+* **PDF Generation**:
+    * [@react-pdf/renderer](https://react-pdf.org/) for creating PDF documents on the client-side.
 
 ## Available Scripts
 
@@ -37,34 +69,12 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Environment Variables
+
+The project uses a `.env` file for environment variables. The `REACT_APP_API_BASE_URL` variable is used to specify the base URL for the API.
 
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
